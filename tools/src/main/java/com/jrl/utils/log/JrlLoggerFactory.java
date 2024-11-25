@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class JrlLoggerFactory {
 
-    private static JrlLoggerBuilder zeusLoggerBuilder = JrlLogSpiUtil.getSpiOrDefault(JrlLoggerBuilder.class, DefaultZeusLoggerBuilder::new);
+    private static JrlLoggerBuilder jrlLoggerBuilder = JrlLogSpiUtil.getSpiOrDefault(JrlLoggerBuilder.class, DefaultJrlLoggerBuilder::new);
 
     /**
      * 获取LOGGER
@@ -24,13 +24,13 @@ public class JrlLoggerFactory {
      * @return
      */
     public static <T> Logger getLogger(Class<T> loggerClass) {
-        return zeusLoggerBuilder.getLogger(loggerClass);
+        return jrlLoggerBuilder.getLogger(loggerClass);
     }
 
     /**
      * 默认实现
      */
-    public static class DefaultZeusLoggerBuilder implements JrlLoggerBuilder {
+    public static class DefaultJrlLoggerBuilder implements JrlLoggerBuilder {
 
         @Override
         public Logger getLogger(Class<?> loggerClass) {

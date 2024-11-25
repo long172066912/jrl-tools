@@ -1,3 +1,7 @@
 dependencies {
     implementation('commons-codec:commons-codec:1.15')
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.12.5'
 }
