@@ -1,4 +1,4 @@
-package com.jrl.utils;
+package org.jrl.utils;
 
 import org.junit.jupiter.api.Test;
 

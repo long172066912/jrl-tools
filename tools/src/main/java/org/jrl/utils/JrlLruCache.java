@@ -1,4 +1,4 @@
-package com.jrl.utils;
+package org.jrl.utils;
 
 import java.util.LinkedHashMap;
 import java.util.concurrent.locks.Lock;

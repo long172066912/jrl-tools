@@ -1,6 +1,6 @@
-package com.jrl.utils.crypto;
+package org.jrl.utils.crypto;
 
-import com.jrl.utils.JrlLruCache;
+import org.jrl.utils.JrlLruCache;
 
 import java.util.Map;
 

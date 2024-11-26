@@ -1,4 +1,4 @@
-package com.jrl.utils.crypto;
+package org.jrl.utils.crypto;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

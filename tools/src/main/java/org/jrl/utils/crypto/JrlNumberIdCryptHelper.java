@@ -1,7 +1,7 @@
-package com.jrl.utils.crypto;
+package org.jrl.utils.crypto;
 
-import com.jrl.utils.JrlMd5;
-import com.jrl.utils.log.JrlLoggerFactory;
+import org.jrl.utils.JrlMd5;
+import org.jrl.utils.log.JrlLoggerFactory;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

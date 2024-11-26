@@ -1,4 +1,4 @@
-package com.jrl.utils.log;
+package org.jrl.utils.log;
 
 import org.slf4j.Logger;
 
