@@ -63,6 +63,10 @@ public class MultiAsyncRequestHelperHandler {
             if (!isDone.get() && awaitTime > 0) {
                 //睡眠一会
                 LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(awaitTime));
+                if (Thread.interrupted()) {
+                    isDone.set(true);
+                    break;
+                }
             }
         }
         isDone.set(true);
