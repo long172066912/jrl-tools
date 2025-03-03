@@ -1,6 +1,6 @@
-package org.jrl.utils.request;
+package org.jrl.request;
 
-import org.jrl.utils.log.JrlLoggerFactory;
+import org.jrl.log.JrlLoggerFactory;
 import org.slf4j.Logger;
 
 /**

@@ -1,4 +1,4 @@
-package org.jrl.utils.request.okhttp3;
+package org.jrl.request.okhttp3;
 
 import okhttp3.Response;
 

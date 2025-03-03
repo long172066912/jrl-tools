@@ -1,7 +1,7 @@
-package org.jrl.utils.request;
+package org.jrl.request;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.jrl.utils.request.impl.HttpAsyncRequestHelper;
+import org.jrl.request.impl.HttpAsyncRequestHelper;
 
 import java.util.ArrayList;
 import java.util.List;

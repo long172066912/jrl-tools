@@ -1,4 +1,4 @@
-package org.jrl.utils.request.okhttp3;
+package org.jrl.request.okhttp3;
 
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tag;
@@ -8,8 +8,8 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jrl.utils.log.JrlLoggerFactory;
-import org.jrl.utils.request.okhttp3.monitor.JrlOkHttp3MetricsEventListener;
+import org.jrl.log.JrlLoggerFactory;
+import org.jrl.request.okhttp3.monitor.JrlOkHttp3MetricsEventListener;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.jrl.utils.request;
+package org.jrl.request;
 
 public interface JrlAsyncRequest<V> {
     /**

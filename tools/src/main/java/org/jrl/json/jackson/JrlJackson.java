@@ -1,4 +1,4 @@
-package org.jrl.utils.json.jackson;
+package org.jrl.json.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
-import org.jrl.utils.json.JrlJson;
+import org.jrl.json.JrlJson;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;

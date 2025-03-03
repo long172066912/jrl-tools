@@ -1,11 +1,11 @@
-package org.jrl.utils.request.impl;
+package org.jrl.request.impl;
 
+import org.jrl.json.JrlJsonNoExpUtil;
+import org.jrl.request.okhttp3.OkHttpClientUtils;
 import org.jrl.utils.JrlClassUtil;
-import org.jrl.utils.json.JrlJsonNoExpUtil;
-import org.jrl.utils.log.JrlLoggerFactory;
-import org.jrl.utils.request.JrlAsyncRequest;
-import org.jrl.utils.request.okhttp3.OkClient;
-import org.jrl.utils.request.okhttp3.OkHttpClientUtils;
+import org.jrl.log.JrlLoggerFactory;
+import org.jrl.request.JrlAsyncRequest;
+import org.jrl.request.okhttp3.OkClient;
 import org.slf4j.Logger;
 
 import java.util.Map;

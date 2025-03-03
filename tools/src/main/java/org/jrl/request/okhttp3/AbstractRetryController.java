@@ -1,6 +1,6 @@
-package org.jrl.utils.request.okhttp3;
+package org.jrl.request.okhttp3;
 
-import org.jrl.utils.log.JrlLoggerFactory;
+import org.jrl.log.JrlLoggerFactory;
 import org.slf4j.Logger;
 
 import java.io.IOException;

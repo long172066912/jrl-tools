@@ -1,4 +1,4 @@
-package org.jrl.utils.spi;
+package org.jrl.spi;
 
 import java.lang.annotation.*;
 

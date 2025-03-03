@@ -1,9 +1,9 @@
-package org.jrl.utils.json;
+package org.jrl.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.jrl.utils.json.jackson.JrlJackson;
-import org.jrl.utils.log.JrlLoggerFactory;
+import org.jrl.json.jackson.JrlJackson;
+import org.jrl.log.JrlLoggerFactory;
 import org.slf4j.Logger;
 
 import java.io.InputStream;

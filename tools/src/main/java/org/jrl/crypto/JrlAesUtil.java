@@ -1,4 +1,4 @@
-package org.jrl.utils.crypto;
+package org.jrl.crypto;
 
 import org.apache.commons.lang3.StringUtils;
 

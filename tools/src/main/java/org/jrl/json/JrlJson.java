@@ -1,4 +1,4 @@
-package org.jrl.utils.json;
+package org.jrl.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 

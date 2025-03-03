@@ -1,6 +1,6 @@
 package org.jrl.utils;
 
-import org.jrl.utils.log.JrlLoggerFactory;
+import org.jrl.log.JrlLoggerFactory;
 import org.slf4j.Logger;
 
 import java.nio.charset.StandardCharsets;
