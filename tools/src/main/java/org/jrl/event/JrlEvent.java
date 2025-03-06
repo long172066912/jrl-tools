@@ -114,11 +114,11 @@ public class JrlEvent<T> {
     private void onEvent(JrlEventListener<T> listener, T eventData) {
         try {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("zeus-event bus publish event ! eventName : {} , listener : {} , data : {}", listener.eventName(), listener.listenerName(), JrlJsonNoExpUtil.toJson(eventData));
+                LOGGER.debug("jrl-event bus publish event ! eventName : {} , listener : {} , data : {}", listener.eventName(), listener.listenerName(), JrlJsonNoExpUtil.toJson(eventData));
             }
             listener.onEvent(eventData);
         } catch (Throwable e) {
-            LOGGER.error("zeus-event bus error ! eventName : {} , listener : {} , data : {}", listener.eventName(), listener.listenerName(), JrlJsonNoExpUtil.toJson(eventData), e);
+            LOGGER.error("jrl-event bus error ! eventName : {} , listener : {} , data : {}", listener.eventName(), listener.listenerName(), JrlJsonNoExpUtil.toJson(eventData), e);
         }
     }
 }

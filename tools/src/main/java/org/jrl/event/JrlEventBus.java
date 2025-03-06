@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * zeus事件总线
+ * jrl事件总线
  *
  * @author JerryLong
  */
@@ -34,7 +34,7 @@ public class JrlEventBus {
     }
 
     public static <T> void register(JrlEventListener<T> listener) {
-        JrlEvent zeusEvent = of(listener.eventName());
-        zeusEvent.addListener(listener);
+        JrlEvent jrlEvent = of(listener.eventName());
+        jrlEvent.addListener(listener);
     }
 }

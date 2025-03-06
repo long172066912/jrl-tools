@@ -1,7 +1,7 @@
 package org.jrl.event;
 
 /**
- * zeus事件监听器
+ * jrl事件监听器
  *
  * @author JerryLong
  */
