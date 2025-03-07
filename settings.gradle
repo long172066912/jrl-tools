@@ -1,3 +1,4 @@
 rootProject.name = 'JrlTools'
 
 include ':tools'
+include ':jrl-redis'
