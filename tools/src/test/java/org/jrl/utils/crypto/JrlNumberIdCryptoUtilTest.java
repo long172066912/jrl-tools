@@ -1,6 +1,6 @@
 package org.jrl.utils.crypto;
 
-import org.jrl.crypto.JrlNumberIdCryptUtil;
+import org.jrl.tools.crypto.JrlNumberIdCryptUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
 package org.jrl.utils;
 
+import org.jrl.tools.utils.JrlLruCache;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

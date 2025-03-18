@@ -1,11 +1,11 @@
 package org.jrl.utils.request;
 
-import org.jrl.json.JrlJsonNoExpUtil;
-import org.jrl.log.JrlLoggerFactory;
-import org.jrl.request.JrlRequestUtil;
-import org.jrl.request.impl.HttpAsyncRequestHelper;
-import org.jrl.request.okhttp3.OkClient;
-import org.jrl.request.okhttp3.OkhttpClientBuilder;
+import org.jrl.tools.json.JrlJsonNoExpUtil;
+import org.jrl.tools.log.JrlLoggerFactory;
+import org.jrl.tools.request.JrlRequestUtil;
+import org.jrl.tools.request.impl.HttpAsyncRequestHelper;
+import org.jrl.tools.request.okhttp3.OkClient;
+import org.jrl.tools.request.okhttp3.OkhttpClientBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
