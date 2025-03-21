@@ -5,5 +5,5 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.12.5'
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3'
-    api group: 'io.micrometer', name: 'micrometer-core', version: '1.7.6'
+    implementation group: 'io.micrometer', name: 'micrometer-core', version: '1.7.6'
 }
