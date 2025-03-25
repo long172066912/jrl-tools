@@ -2,3 +2,4 @@ rootProject.name = 'JrlTools'
 
 include ':tools'
 include ':redis:core'
+include ':extensions:thread-apollo'
