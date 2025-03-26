@@ -9,6 +9,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 */
 public class JrlMonitor {
     public static ExecutorService getMonitorExecutorService(String threadPoolName, ThreadPoolExecutor poolExecutor) {
-        return null;
+        return poolExecutor;
     }
 }
