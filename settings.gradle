@@ -2,5 +2,6 @@ rootProject.name = 'JrlTools'
 
 include ':tools'
 include ':redis:core'
+include ':redis:redis-proxy-java'
 include ':monitor:jrl-monitor-micrometer'
 include ':extensions:thread-apollo'
