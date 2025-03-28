@@ -1,6 +1,7 @@
 package org.jrl.tools.event;
 
 import org.jrl.tools.log.JrlLoggerFactory;
+import org.jrl.tools.thread.JrlThreadUtil;
 import org.slf4j.Logger;
 
 import java.util.Map;
@@ -28,8 +29,7 @@ public class JrlEventBus {
     public static <T> JrlEvent<T> of(String eventName) {
         return (JrlEvent<T>) EVENT_REGISTER_MAP.computeIfAbsent(eventName, e -> {
             LOGGER.info("register event : {}", eventName);
-            //todo 传入线程池
-            return new JrlEvent<>(eventName, true, null);
+            return new JrlEvent<>(eventName, true, JrlThreadUtil.getDefaultPool());
         });
     }
 
