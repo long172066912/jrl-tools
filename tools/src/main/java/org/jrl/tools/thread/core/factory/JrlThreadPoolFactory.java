@@ -34,7 +34,7 @@ public class JrlThreadPoolFactory {
     /**
      * 所有线程池shutdown时间
      */
-    public static final int THREAD_POOL_SHUTDOWN_TIME = 30;
+    public static final int THREAD_POOL_SHUTDOWN_TIME = Integer.parseInt(System.getProperty("jrl.thread.shutdown.time", "30"));
 
     static {
         //增加所有线程的监控
