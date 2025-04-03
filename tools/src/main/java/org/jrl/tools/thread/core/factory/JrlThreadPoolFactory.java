@@ -43,7 +43,7 @@ public class JrlThreadPoolFactory {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             final long l = System.currentTimeMillis();
             try {
-                Thread.sleep(THREAD_POOL_SHUTDOWN_TIME * 1000);
+                Thread.sleep(THREAD_POOL_SHUTDOWN_TIME * 1000L);
             } catch (InterruptedException e) {
             }
             LOGGER.info("jrl-thread shutdown ! poolSize : {}", poolMap.size());
