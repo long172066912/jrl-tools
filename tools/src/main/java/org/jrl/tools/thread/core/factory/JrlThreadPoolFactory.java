@@ -21,14 +21,14 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class JrlThreadPoolFactory {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(JrlThreadPoolFactory.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JrlThreadPoolFactory.class);
 
     private static final DynamicThreadPool DYNAMIC_THREAD_POOL = JrlSpiLoader.getInstanceOrDefault(DynamicThreadPool.class, DynamicThreadPool.DefaultDynamicThreadPool::new);
     private static final MonitorThreadPool MONITOR_THREAD_POOL = JrlSpiLoader.getInstanceOrDefault(MonitorThreadPool.class, MonitorThreadPool.DefaultMonitorThreadPool::new);
     /**
      * 所有线程池的管理
      */
-    private static final Map<String, JrlThreadPool> poolMap = new ConcurrentHashMap<>();
+    private static final Map<String, JrlThreadPool> POOL_MAP = new ConcurrentHashMap<>();
     private static final String THREAD_NAME_PREFIX = "JrlThreadPool-";
     private static final String SCHEDULE_THREAD_NAME_PREFIX = "JrlScheduleThreadPool-";
     /**
@@ -46,17 +46,17 @@ public class JrlThreadPoolFactory {
                 Thread.sleep(THREAD_POOL_SHUTDOWN_TIME * 1000L);
             } catch (InterruptedException e) {
             }
-            LOGGER.info("jrl-thread shutdown ! poolSize : {}", poolMap.size());
-            poolMap.values().stream()
+            LOGGER.info("jrl-thread shutdown ! poolSize : {}", POOL_MAP.size());
+            POOL_MAP.values().stream()
                     .sorted((o1, o2) -> o2.getConfig().getShutdownOrder() - o1.getConfig().getShutdownOrder())
                     .forEach(JrlThreadPool::close);
-            poolMap.values().stream()
+            POOL_MAP.values().stream()
                     .sorted((o1, o2) -> o2.getConfig().getShutdownOrder() - o1.getConfig().getShutdownOrder())
                     .forEach(pool -> {
                         pool.awaitClose();
-                        poolMap.remove(pool.getName());
+                        POOL_MAP.remove(pool.getName());
                     });
-            LOGGER.info("jrl-thread shutdown success ! poolSize : {} , cost : {}", poolMap.size(), System.currentTimeMillis() - l);
+            LOGGER.info("jrl-thread shutdown success ! poolSize : {} , cost : {}", POOL_MAP.size(), System.currentTimeMillis() - l);
         }));
     }
 
@@ -69,11 +69,11 @@ public class JrlThreadPoolFactory {
      * @return 线程池
      */
     protected static <T extends ExecutorService> T computeIfAbsent(String name, JrlThreadPoolConfig config) {
-        JrlThreadPool pool = poolMap.get(name);
+        JrlThreadPool pool = POOL_MAP.get(name);
         //此处不能用poolMap本身的computeIfAbsent，使用JrlNewThreadPoolRunsPolicyRejected 时，会持续死锁
         if (null == pool) {
             synchronized (JrlThreadPoolFactory.class) {
-                pool = poolMap.get(name);
+                pool = POOL_MAP.get(name);
                 if (pool == null) {
                     ThreadPoolExecutor executor;
                     if (config.isDynamicConfiguration()) {
@@ -91,7 +91,7 @@ public class JrlThreadPoolFactory {
                         executor = MONITOR_THREAD_POOL.monitor(name, executor);
                     }
                     pool = JrlThreadPool.create(name, config, executor);
-                    poolMap.putIfAbsent(name, pool);
+                    POOL_MAP.putIfAbsent(name, pool);
                 }
             }
         }
@@ -99,10 +99,10 @@ public class JrlThreadPoolFactory {
     }
 
     protected static void monitor() {
-        Metrics.gaugeMapSize("jrl.thread.pool.size", Tags.empty(), poolMap);
-        Metrics.gauge("jrl.thread.thread.size", poolMap, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getActiveThreadSize).sum());
-        Metrics.gauge("jrl.thread.thread.max", poolMap, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getMaxThreadSize).sum());
-        Metrics.gauge("jrl.thread.queue.size", poolMap, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getQueueSize).sum());
-        Metrics.gauge("jrl.thread.queue.max", poolMap, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getMaxQueueSize).sum());
+        Metrics.gaugeMapSize("jrl.thread.pool.size", Tags.empty(), POOL_MAP);
+        Metrics.gauge("jrl.thread.thread.size", POOL_MAP, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getActiveThreadSize).sum());
+        Metrics.gauge("jrl.thread.thread.max", POOL_MAP, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getMaxThreadSize).sum());
+        Metrics.gauge("jrl.thread.queue.size", POOL_MAP, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getQueueSize).sum());
+        Metrics.gauge("jrl.thread.queue.max", POOL_MAP, (pool) -> pool.values().stream().mapToInt(JrlThreadPool::getMaxQueueSize).sum());
     }
 }
