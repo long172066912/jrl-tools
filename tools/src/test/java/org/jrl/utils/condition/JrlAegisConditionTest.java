@@ -7,7 +7,7 @@ import org.jrl.tools.condition.JrlConditionMatchHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ZeusAegisConditionTest {
+public class JrlAegisConditionTest {
 
     @Test
     public void test() {
@@ -18,7 +18,7 @@ public class ZeusAegisConditionTest {
                 .build();
         Assertions.assertFalse(JrlConditionMatchHelper.match(condition, null).isMatch());
         Assertions.assertFalse(JrlConditionMatchHelper.match(condition, ImmutableMap.of("a", "b")).isMatch());
-        Assertions.assertFalse(JrlConditionMatchHelper.match(condition, ImmutableMap.of("name", "zeus")).isMatch());
+        Assertions.assertFalse(JrlConditionMatchHelper.match(condition, ImmutableMap.of("name", "jrl")).isMatch());
         Assertions.assertTrue(JrlConditionMatchHelper.match(condition, ImmutableMap.of("name", "wanba")).isMatch());
         Assertions.assertTrue(JrlConditionMatchHelper.match(condition, ImmutableMap.of("name", "wb")).isMatch());
         Assertions.assertTrue(JrlConditionMatchHelper.match(condition, ImmutableMap.of("name", "wb", "age", 18)).isMatch());
