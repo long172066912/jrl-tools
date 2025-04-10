@@ -1,0 +1,3 @@
+org.jrl.utils.aegis.limit.redis.JrlLimitRedisExecutor
+org.jrl.tools.aegis.core.executor.extensions.sentinel.JrlAegisSentinelBreakerExtends
+org.jrl.tools.aegis.core.executor.extensions.sentinel.JrlAegisSentinelLimitExtends

@@ -1,4 +1,4 @@
-package org.jrl.redis.util;
+package org.jrl.tools.utils;
 
 import org.jrl.tools.log.JrlLoggerFactory;
 import org.slf4j.Logger;
