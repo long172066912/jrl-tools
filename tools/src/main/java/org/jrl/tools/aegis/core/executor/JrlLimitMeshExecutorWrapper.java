@@ -13,7 +13,7 @@ import org.slf4j.Logger;
  *
  * @author JerryLong
  */
-public class JrlLimitMeshExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisExecutor.AbstractZeusAegisExecutor<E, JrlAegisLimitRule> {
+public class JrlLimitMeshExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisExecutor.AbstractJrlAegisExecutor<E, JrlAegisLimitRule> {
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlLimitMeshExecutorWrapper.class);
 
     private final JrlAegisExecutorSpi<E, JrlAegisLimitRule> limitExecutor;
@@ -37,6 +37,6 @@ public class JrlLimitMeshExecutorWrapper<E extends JrlAegisEntry> extends JrlAeg
 
     @Override
     protected String alias() {
-        return "zeus-aegis-limit-wbCache2";
+        return "jrl-aegis-limit-redis";
     }
 }

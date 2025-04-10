@@ -7,7 +7,7 @@ import org.jrl.tools.aegis.model.JrlAegisResourceType;
 import org.jrl.tools.utils.function.AbstractJrlCallable;
 
 /**
- * zeus 神盾
+ * jrl 神盾
  *
  * @author JerryLong
  */
@@ -39,7 +39,7 @@ public interface JrlAegis {
     /**
      * 尝试获取令牌，如果被拒绝了，抛出异常
      * 不支持mock，mock请使用{@linkplain JrlAegis#tryEntry(AbstractJrlCallable)}
-     * ！！！注意，必须正确释放ZeusAegisEntry
+     * ！！！注意，必须正确释放JrlAegisEntry
      *
      * @return
      */
@@ -58,7 +58,7 @@ public interface JrlAegis {
     /**
      * 尝试获取令牌，如果被拒绝了，抛出异常
      * 支持mock
-     * ！！！注意，必须正确释放ZeusAegisEntry
+     * ！！！注意，必须正确释放JrlAegisEntry
      *
      * @param runnable 业务被神盾保护的逻辑
      * @return 保护成功时的业务执行返回值

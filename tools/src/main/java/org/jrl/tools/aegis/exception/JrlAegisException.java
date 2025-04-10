@@ -13,7 +13,7 @@ public class JrlAegisException extends RuntimeException {
     private final String name;
 
     public JrlAegisException(String limitName, JrlAegisRule rule) {
-        super("zeus-aegis block ! name : " + limitName + " scope : " + rule.scope().getScope() + " type : " + rule.type().name(), null);
+        super("jrl-aegis block ! name : " + limitName + " scope : " + rule.scope().getScope() + " type : " + rule.type().name(), null);
         this.name = limitName;
         this.rule = rule;
     }

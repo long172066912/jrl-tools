@@ -19,7 +19,7 @@ public class JrlLimitRedisEntry implements JrlAegisEntry {
         try {
             handler.decr(key);
         } catch (Throwable e) {
-            LOGGER.error("zeus-aegis limit-wbCache2-entry exit error ! key : {}", key, e);
+            LOGGER.error("jrl-aegis limit-redis-entry exit error ! key : {}", key, e);
         }
     }
 

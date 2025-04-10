@@ -33,7 +33,7 @@ public class JrlAegisSentinelLimitExtends
         implements JrlAegisExecutorSpi<JrlAegisSentinelEntry, JrlAegisLimitRule> {
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlAegisSentinelLimitExtends.class);
     protected static final Map<String, ArrayMetric> TIME_WINDOW_METRICS = new ConcurrentHashMap<>();
-    private static final int ZEUS_AEGIS_LIMIT_RESOURCE_TYPE_ID = 1000000;
+    private static final int JRL_AEGIS_LIMIT_RESOURCE_TYPE_ID = 1000000;
 
     @Override
     public void init(String name, JrlAegisLimitRule rule) {
@@ -50,13 +50,13 @@ public class JrlAegisSentinelLimitExtends
                     return null;
                 }
                 if (metric.getSampleCount() <= metric.pass()) {
-                    throw new FlowException("zeus-limit-sentinel timeWindow flow fail ! name : " + name);
+                    throw new FlowException("jrl-limit-sentinel timeWindow flow fail ! name : " + name);
                 }
                 return new JrlAegisSentinelEntry(name, null, TIME_WINDOW);
             }
-            return new JrlAegisSentinelEntry(name, SphU.asyncEntry(name, ZEUS_AEGIS_LIMIT_RESOURCE_TYPE_ID, EntryType.IN), type);
+            return new JrlAegisSentinelEntry(name, SphU.asyncEntry(name, JRL_AEGIS_LIMIT_RESOURCE_TYPE_ID, EntryType.IN), type);
         } catch (BlockException e) {
-            LOGGER.warn("zeus-aegis limit-sentinel block ! name : {} , rule : {}", name, rule);
+            LOGGER.warn("jrl-aegis limit-sentinel block ! name : {} , rule : {}", name, rule);
             throw new JrlAegisLimitException(name, rule);
         }
     }
@@ -70,20 +70,20 @@ public class JrlAegisSentinelLimitExtends
                 thread.setCount(rule.count());
                 thread.setGrade(RuleConstant.FLOW_GRADE_THREAD);
                 loadSentinelRule(name, thread);
-                LOGGER.info("zeus-aegis limit-sentinel load THREAD : {} , count : {}", name, rule.count());
+                LOGGER.info("jrl-aegis limit-sentinel load THREAD : {} , count : {}", name, rule.count());
                 break;
             case TIME_WINDOW:
                 //通过时间窗口降级实现限流
                 final ArrayMetric arrayMetric = new ArrayMetric(rule.count(), rule.timeWindow() * 1000, false);
                 TIME_WINDOW_METRICS.put(name, arrayMetric);
-                LOGGER.info("zeus-aegis limit-sentinel load TIME_WINDOW : {} , count : {} , timeWindow : {}", name, rule.count(), rule.timeWindow());
+                LOGGER.info("jrl-aegis limit-sentinel load TIME_WINDOW : {} , count : {} , timeWindow : {}", name, rule.count(), rule.timeWindow());
                 break;
             case QPS:
             default:
                 FlowRule qps = new FlowRule().setCount(rule.count()).setGrade(RuleConstant.FLOW_GRADE_QPS);
                 qps.setResource(name);
                 loadSentinelRule(name, qps);
-                LOGGER.info("zeus-aegis limit-sentinel load QPS : {} , count : {}", name, rule.count());
+                LOGGER.info("jrl-aegis limit-sentinel load QPS : {} , count : {}", name, rule.count());
                 break;
         }
     }
@@ -93,7 +93,7 @@ public class JrlAegisSentinelLimitExtends
         if (FlowRuleManager.hasConfig(name)) {
             //删除旧的限流规则
             rules.removeIf(flowRule -> flowRule.getResource().equals(name));
-            LOGGER.info("zeus-aegis limit-sentinel delete old rule : {}", name);
+            LOGGER.info("jrl-aegis limit-sentinel delete old rule : {}", name);
         }
         rules.add(rule);
         FlowRuleManager.loadRules(rules);

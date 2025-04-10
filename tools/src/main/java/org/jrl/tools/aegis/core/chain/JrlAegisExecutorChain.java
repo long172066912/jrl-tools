@@ -14,7 +14,7 @@ import org.slf4j.Logger;
  *
  * @author JerryLong
  */
-public class JrlAegisExecutorChain extends JrlChain.AbstractZeusChain<JrlAegisExecutor<?, ?>, JrlAegisChainEntry> {
+public class JrlAegisExecutorChain extends JrlChain.AbstractJrlChain<JrlAegisExecutor<?, ?>, JrlAegisChainEntry> {
 
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlAegisExecutorChain.class);
 
@@ -23,31 +23,31 @@ public class JrlAegisExecutorChain extends JrlChain.AbstractZeusChain<JrlAegisEx
     }
 
     @Override
-    public ZeusChainStatus status() {
-        if (this.status != ZeusChainStatus.ENABLE) {
+    public JrlChainStatus status() {
+        if (this.status != JrlChainStatus.ENABLE) {
             return this.status;
         }
         final JrlAegisExecutor<?, ?> executor = this.getExecutor();
         if (null == executor || executor.isExpired()) {
-            return ZeusChainStatus.DISABLE;
+            return JrlChainStatus.DISABLE;
         }
         if (!executor.inTime()) {
-            return ZeusChainStatus.DISABLE;
+            return JrlChainStatus.DISABLE;
         }
         // 匹配条件
         return matchCondition();
     }
 
-    private ZeusChainStatus matchCondition() {
+    private JrlChainStatus matchCondition() {
         final JrlCondition condition = this.getExecutor().getRule().condition();
         if (null == condition) {
-            return ZeusChainStatus.ENABLE;
+            return JrlChainStatus.ENABLE;
         }
         final JrlConditionMatchHelper.MatchResult match = JrlConditionMatchHelper.match(condition, JrlAegisContext.getContext().getRequest());
         if (!match.isMatch()) {
-            return ZeusChainStatus.DISABLE;
+            return JrlChainStatus.DISABLE;
         }
-        return ZeusChainStatus.ENABLE;
+        return JrlChainStatus.ENABLE;
     }
 
     /**
@@ -105,7 +105,7 @@ public class JrlAegisExecutorChain extends JrlChain.AbstractZeusChain<JrlAegisEx
      */
     private JrlAegisEntry tryAcquire() {
         final JrlAegisExecutor<?, ?> executor = this.getExecutor();
-        if (null == executor || status() != ZeusChainStatus.ENABLE) {
+        if (null == executor || status() != JrlChainStatus.ENABLE) {
             return null;
         }
         return executor.tryAcquire();

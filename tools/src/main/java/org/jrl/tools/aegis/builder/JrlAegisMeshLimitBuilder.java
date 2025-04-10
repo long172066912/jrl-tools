@@ -30,7 +30,7 @@ public class JrlAegisMeshLimitBuilder extends JrlAegisLocalBuilder<JrlAegisLimit
     public JrlAegis build() {
         resourceType = JrlAegisResourceType.MESH;
         if (StringUtils.isBlank(resource)) {
-            throw new IllegalArgumentException("Zeus-Aegis 规则 resource 不能为空");
+            throw new IllegalArgumentException("Jrl-Aegis 规则 resource 不能为空");
         }
         if (null == connectType) {
             connectType = JrlCacheMeshConnectType.NORMAL;

@@ -13,7 +13,7 @@ import org.slf4j.Logger;
  *
  * @author JerryLong
  */
-public class JrlLimitExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisExecutor.AbstractZeusAegisExecutor<E, JrlAegisLimitRule> {
+public class JrlLimitExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisExecutor.AbstractJrlAegisExecutor<E, JrlAegisLimitRule> {
 
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlLimitExecutorWrapper.class);
     private final JrlAegisExecutorSpi<E, JrlAegisLimitRule> limitExecutor;
@@ -37,6 +37,6 @@ public class JrlLimitExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisEx
 
     @Override
     protected String alias() {
-        return "zeus-aegis-limit-sentinel";
+        return "jrl-aegis-limit-sentinel";
     }
 }

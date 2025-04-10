@@ -62,7 +62,7 @@ interface JrlChain<E, R> {
      *
      * @return 状态
      */
-    ZeusChainStatus status();
+    JrlChainStatus status();
 
     /**
      * 修改节点
@@ -72,7 +72,7 @@ interface JrlChain<E, R> {
      */
     void change(E e, int index);
 
-    enum ZeusChainStatus {
+    enum JrlChainStatus {
         /**
          * 启用
          */
@@ -88,13 +88,13 @@ interface JrlChain<E, R> {
      *
      * @author JerryLong
      */
-    abstract class AbstractZeusChain<E, R> implements JrlChain<E, R> {
+    abstract class AbstractJrlChain<E, R> implements JrlChain<E, R> {
         private int index;
         private E executor;
         private JrlChain<E, R> next;
-        protected ZeusChainStatus status = ZeusChainStatus.ENABLE;
+        protected JrlChainStatus status = JrlChainStatus.ENABLE;
 
-        public AbstractZeusChain(int index, E executor, AbstractZeusChain<E, R> next) {
+        public AbstractJrlChain(int index, E executor, AbstractJrlChain<E, R> next) {
             this.index = index;
             this.executor = executor;
             this.next = next;
@@ -128,7 +128,7 @@ interface JrlChain<E, R> {
         @Override
         public void remove(int index) {
             if (this.getIndex() == index) {
-                this.status = ZeusChainStatus.DISABLE;
+                this.status = JrlChainStatus.DISABLE;
             } else {
                 if (null == this.getNext()) {
                     return;

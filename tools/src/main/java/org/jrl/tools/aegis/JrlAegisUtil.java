@@ -25,7 +25,7 @@ public class JrlAegisUtil {
      * 获取神盾处理器
      *
      * @param name key
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis getAegis(String name) {
         return JrlAegisManager.getAegis(name);
@@ -36,7 +36,7 @@ public class JrlAegisUtil {
      *
      * @param name     key
      * @param supplier 默认构造器
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis getAegis(String name, Supplier<JrlAegis> supplier) {
         final JrlAegis aegis = getAegis(name);
@@ -63,7 +63,7 @@ public class JrlAegisUtil {
      * @param minRequest   最小请求
      * @param blockSeconds 熔断时间，单位：秒
      * @param maxCount     最大异常次数
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis blockByExceptionCount(String name, int statMs, int minRequest, int blockSeconds, int maxCount) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -83,7 +83,7 @@ public class JrlAegisUtil {
      * @param minRequest   最小请求
      * @param blockSeconds 熔断时间，单位：秒
      * @param maxRadio     最大异常比例
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis blockByExceptionRadio(String name, int statMs, int minRequest, int blockSeconds, double maxRadio) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -104,7 +104,7 @@ public class JrlAegisUtil {
      * @param blockSeconds 熔断时间，单位：秒
      * @param maxRadio     最大慢请求比例
      * @param slowCountMs  慢请求时间，单位：毫秒
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis blockBySlowRadio(String name, int statMs, int minRequest, int blockSeconds, int maxRadio, int slowCountMs) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -130,7 +130,7 @@ public class JrlAegisUtil {
      *
      * @param name        key
      * @param qpsMaxCount 每秒最大请求
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis limitQps(String name, int qpsMaxCount) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -166,7 +166,7 @@ public class JrlAegisUtil {
      * @param name       key
      * @param maxCount   最大数量
      * @param timeWindow 时间窗口，单位：秒
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis limitTime(String name, int maxCount, int timeWindow) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -184,7 +184,7 @@ public class JrlAegisUtil {
      * @param name       key
      * @param maxCount   最大数量
      * @param timeWindow 时间窗口，单位：秒
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis limitTimeMesh(String name, String resource, int maxCount, int timeWindow) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -206,7 +206,7 @@ public class JrlAegisUtil {
      * @param ruleId     规则id
      * @param maxCount   最大数量
      * @param timeWindow 时间窗口，单位：秒
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis limitTimeMeshDynamicConfig(String name, String resource, JrlAegisScope scope, int ruleId, int maxCount, int timeWindow) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -237,7 +237,7 @@ public class JrlAegisUtil {
      *
      * @param name     key
      * @param maxCount 最大数量
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis limitThread(String name, int maxCount) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);
@@ -254,7 +254,7 @@ public class JrlAegisUtil {
      *
      * @param name     key
      * @param maxCount 最大数量
-     * @return zeus-aegis
+     * @return jrl-aegis
      */
     public static JrlAegis limitThreadMesh(String name, String resource, int maxCount) {
         final AbstractJrlAegis aegis = JrlAegisManager.getAegis(name);

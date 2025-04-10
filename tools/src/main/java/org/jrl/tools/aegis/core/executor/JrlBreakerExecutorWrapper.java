@@ -13,7 +13,7 @@ import org.slf4j.Logger;
  *
  * @author JerryLong
  */
-public class JrlBreakerExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisExecutor.AbstractZeusAegisExecutor<E, JrlAegisBreakerRule> {
+public class JrlBreakerExecutorWrapper<E extends JrlAegisEntry> extends JrlAegisExecutor.AbstractJrlAegisExecutor<E, JrlAegisBreakerRule> {
 
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlBreakerExecutorWrapper.class);
 
@@ -38,6 +38,6 @@ public class JrlBreakerExecutorWrapper<E extends JrlAegisEntry> extends JrlAegis
 
     @Override
     protected String alias() {
-        return "zeus-aegis-breaker-sentinel";
+        return "jrl-aegis-breaker-sentinel";
     }
 }

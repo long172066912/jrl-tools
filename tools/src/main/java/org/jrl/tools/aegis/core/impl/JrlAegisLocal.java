@@ -35,6 +35,6 @@ public class JrlAegisLocal<E extends JrlAegisExecutor<?, R>, R extends JrlAegisR
         } else if (rule.type().getAction() == JrlAegisType.BREAKER) {
             return (E) new JrlBreakerExecutorWrapper(this.getName(), (JrlAegisBreakerRule) rule);
         }
-        throw new IllegalArgumentException("Zeus-Aegis 规则类型错误: [" + rule.type().getAction() + "] , 不存在的类型");
+        throw new IllegalArgumentException("Jrl-Aegis 规则类型错误: [" + rule.type().getAction() + "] , 不存在的类型");
     }
 }

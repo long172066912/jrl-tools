@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
  *
  * @author JerryLong
  */
-public class JrlAegisChainChain extends JrlChain.AbstractZeusChain<JrlAegisExecutorChain, JrlAegisChainEntry> {
+public class JrlAegisChainChain extends JrlChain.AbstractJrlChain<JrlAegisExecutorChain, JrlAegisChainEntry> {
 
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlAegisChainChain.class);
 
@@ -23,7 +23,7 @@ public class JrlAegisChainChain extends JrlChain.AbstractZeusChain<JrlAegisExecu
     @Override
     public JrlAegisChainEntry execute() {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("zeus-aegis ZeusAegisChainChain execute !");
+            LOGGER.debug("jrl-aegis JrlAegisChainChain execute !");
         }
         JrlAegisChainEntry entry = null;
         //执行当前链路
@@ -62,12 +62,12 @@ public class JrlAegisChainChain extends JrlChain.AbstractZeusChain<JrlAegisExecu
     }
 
     @Override
-    public ZeusChainStatus status() {
+    public JrlChainStatus status() {
         return status;
     }
 
     @Override
-    public void add(JrlAegisExecutorChain zeusAegisExecutorChain, int index) {
+    public void add(JrlAegisExecutorChain jrlAegisExecutorChain, int index) {
         if (index > this.getIndex()) {
             final JrlAegisExecutorChain thisExecutor = this.getExecutor();
             //创建next节点（是原本当前节点）
@@ -76,25 +76,25 @@ public class JrlAegisChainChain extends JrlChain.AbstractZeusChain<JrlAegisExecu
             this.setNext(next);
             //替换当前节点
             this.setIndex(index);
-            this.setExecutor(zeusAegisExecutorChain);
+            this.setExecutor(jrlAegisExecutorChain);
         } else {
-            this.getNext().add(zeusAegisExecutorChain, index);
+            this.getNext().add(jrlAegisExecutorChain, index);
         }
     }
 
     @Override
-    public int addLast(JrlAegisExecutorChain zeusAegisExecutorChain) {
+    public int addLast(JrlAegisExecutorChain jrlAegisExecutorChain) {
         if (this.getNext() == null) {
             final int index = this.getIndex() - 1;
-            this.setNext(new JrlAegisChainChain(index, zeusAegisExecutorChain, null));
+            this.setNext(new JrlAegisChainChain(index, jrlAegisExecutorChain, null));
             return index;
         } else {
-            return this.getNext().addLast(zeusAegisExecutorChain);
+            return this.getNext().addLast(jrlAegisExecutorChain);
         }
     }
 
     @Override
-    public JrlAegisChainChain addFirst(JrlAegisExecutorChain zeusAegisExecutorChain) {
-        return new JrlAegisChainChain(this.getIndex() + 1, zeusAegisExecutorChain, this);
+    public JrlAegisChainChain addFirst(JrlAegisExecutorChain jrlAegisExecutorChain) {
+        return new JrlAegisChainChain(this.getIndex() + 1, jrlAegisExecutorChain, this);
     }
 }

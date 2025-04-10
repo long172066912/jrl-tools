@@ -20,10 +20,10 @@ public class JrlLimitRedisExecutor implements JrlAegisExecutorSpi<JrlLimitRedisE
 
     @Override
     public void init(String name, JrlAegisLimitRule rule) {
-        LOGGER.info("zeus-aegis limit-wbCache2 init start ! name : {} , cacheType : {} , connectionType : {}", name, rule.getResource(), rule.getConnectType());
+        LOGGER.info("jrl-aegis limit-redis init start ! name : {} , cacheType : {} , connectionType : {}", name, rule.getResource(), rule.getConnectType());
         //使用本地连接
         handler = new JrlAegisRedisHandler(rule.getResource(), rule.getConnectType(), true);
-        LOGGER.info("zeus-aegis limit-wbCache2 init success !");
+        LOGGER.info("jrl-aegis limit-redis init success !");
     }
 
     @Override
@@ -45,11 +45,11 @@ public class JrlLimitRedisExecutor implements JrlAegisExecutorSpi<JrlLimitRedisE
                     break;
             }
         } catch (Exception e) {
-            LOGGER.error("zeus-aegis limit-wbCache2 tryAcquire error ! name : {} , rule : {}", name, rule);
+            LOGGER.error("jrl-aegis limit-redis tryAcquire error ! name : {} , rule : {}", name, rule);
             return null;
         }
         if (!status) {
-            LOGGER.warn("zeus-aegis limit-wbCache2 block ! name : {} , rule : {}", name, rule);
+            LOGGER.warn("jrl-aegis limit-redis block ! name : {} , rule : {}", name, rule);
             throw new JrlAegisLimitException(name, rule);
         }
         return entry;

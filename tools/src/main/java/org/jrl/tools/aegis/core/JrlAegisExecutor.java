@@ -9,14 +9,14 @@ public interface JrlAegisExecutor<E extends JrlAegisEntry, R extends JrlAegisRul
     /**
      * 尝试获取资源
      *
-     * @return ZeusAegisEntry
+     * @return JrlAegisEntry
      */
     E tryAcquire();
 
     /**
      * 获取规则
      *
-     * @return ZeusAegisRule
+     * @return JrlAegisRule
      */
     R getRule();
 
@@ -63,15 +63,15 @@ public interface JrlAegisExecutor<E extends JrlAegisEntry, R extends JrlAegisRul
     /**
      * 修改配置
      *
-     * @param rule ZeusAegisRule
+     * @param rule JrlAegisRule
      */
     void changeRule(R rule);
 
-    abstract class AbstractZeusAegisExecutor<E extends JrlAegisEntry, R extends JrlAegisRule> implements JrlAegisExecutor<E, R> {
+    abstract class AbstractJrlAegisExecutor<E extends JrlAegisEntry, R extends JrlAegisRule> implements JrlAegisExecutor<E, R> {
         protected final String name;
         protected R rule;
 
-        public AbstractZeusAegisExecutor(String name, R rule) {
+        public AbstractJrlAegisExecutor(String name, R rule) {
             this.name = alias() + ":" + name + "_" + rule.scope().getScope() + "_" + rule.id();
             this.rule = rule;
         }

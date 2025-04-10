@@ -99,7 +99,7 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
             }
         }
         // 未获取到令牌，打印错误日志
-        LOGGER.error("zeus-aegis tryAcquire fail , not found entry !");
+        LOGGER.error("jrl-aegis tryAcquire fail , not found entry !");
         return null;
     }
 
@@ -154,14 +154,14 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
 
     @Override
     public void deleteRule(R rule) {
-        LOGGER.info("zeus-aegis delete rule : {}", rule);
-        final JrlAegisChainChain chain = ZeusAegisChainUtil.getChain(rule.scope().getPriority());
+        LOGGER.info("jrl-aegis delete rule : {}", rule);
+        final JrlAegisChainChain chain = JrlAegisChainUtil.getChain(rule.scope().getPriority());
         if (chain == null) {
-            LOGGER.error("zeus-aegis delete rule fail , not found chain");
+            LOGGER.error("jrl-aegis delete rule fail , not found chain");
             return;
         }
         chain.getExecutor().remove(rule.id());
-        LOGGER.info("zeus-aegis delete rule success !");
+        LOGGER.info("jrl-aegis delete rule success !");
     }
 
     /**
@@ -171,37 +171,37 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
      */
     @Override
     public void changeRule(R rule) {
-        LOGGER.info("zeus-aegis change rule : {}", rule);
-        final JrlAegisChainChain chain = ZeusAegisChainUtil.getChain(rule.scope().getPriority());
+        LOGGER.info("jrl-aegis change rule : {}", rule);
+        final JrlAegisChainChain chain = JrlAegisChainUtil.getChain(rule.scope().getPriority());
         if (chain == null) {
-            LOGGER.error("zeus-aegis change rule fail , not found chain");
+            LOGGER.error("jrl-aegis change rule fail , not found chain");
             return;
         }
-        final JrlAegisExecutor<?, JrlAegisRule> zeusAegisExecutor = (JrlAegisExecutor<?, JrlAegisRule>) chain.getExecutor().get(rule.id());
-        if (null == zeusAegisExecutor) {
-            LOGGER.error("zeus-aegis change rule fail , not found executor");
+        final JrlAegisExecutor<?, JrlAegisRule> jrlAegisExecutor = (JrlAegisExecutor<?, JrlAegisRule>) chain.getExecutor().get(rule.id());
+        if (null == jrlAegisExecutor) {
+            LOGGER.error("jrl-aegis change rule fail , not found executor");
             return;
         }
-        zeusAegisExecutor.changeRule(rule);
-        LOGGER.info("zeus-aegis change rule success !");
+        jrlAegisExecutor.changeRule(rule);
+        LOGGER.info("jrl-aegis change rule success !");
     }
 
 
     @Override
     public void addRule(R rule) {
-        LOGGER.info("zeus-aegis change rule : {}", rule);
-        final JrlAegisChainChain chain = ZeusAegisChainUtil.getChain(rule.scope().getPriority());
+        LOGGER.info("jrl-aegis change rule : {}", rule);
+        final JrlAegisChainChain chain = JrlAegisChainUtil.getChain(rule.scope().getPriority());
         if (chain == null) {
-            LOGGER.error("zeus-aegis add rule fail , not found chain");
+            LOGGER.error("jrl-aegis add rule fail , not found chain");
             return;
         }
         //判断id是否已存在
         if (chain.get(rule.id()) != null) {
-            LOGGER.warn("zeus-aegis add rule fail , rule id already exist ! scope : {} , id : {}", rule.scope().getScope(), rule.id());
+            LOGGER.warn("jrl-aegis add rule fail , rule id already exist ! scope : {} , id : {}", rule.scope().getScope(), rule.id());
             return;
         }
         chain.getExecutor().add(buildExecutor(rule), rule.id());
-        LOGGER.info("zeus-aegis change rule success !");
+        LOGGER.info("jrl-aegis change rule success !");
     }
 
     /**
@@ -220,8 +220,8 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
         }
         //优先级越高优先
         scopes.sort(Comparator.comparingInt(JrlAegisScope::getPriority).reversed());
-        return ZeusAegisChainUtil.buildChain(scopes, 0, (scope) ->
-                ZeusAegisChainUtil.buildExecutorChain(ruleInfo.get(scope), 0, this::buildExecutor)
+        return JrlAegisChainUtil.buildChain(scopes, 0, (scope) ->
+                JrlAegisChainUtil.buildExecutorChain(ruleInfo.get(scope), 0, this::buildExecutor)
         );
     }
 
@@ -234,22 +234,22 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
                 groupAndSort(rules, R::scope, Comparator.comparingInt(R::id).reversed());
         this.ruleInfo = JrlCollectionUtil.filter(ruleMap, rule -> rule.startTime() <= now && rule.endTime() >= now);
         if (null == this.ruleInfo) {
-            LOGGER.warn("zeus-aegis load rules fail , rules is empty !");
-            throw new IllegalArgumentException("zeus-aegis load rules fail , rules is empty !");
+            LOGGER.warn("jrl-aegis load rules fail , rules is empty !");
+            throw new IllegalArgumentException("jrl-aegis load rules fail , rules is empty !");
         }
         //构建神盾执行链
         if (null != this.aegisChainChain) {
-            LOGGER.info("zeus-aegis change rules start ! scope size : {}", ruleInfo.size());
+            LOGGER.info("jrl-aegis change rules start ! scope size : {}", ruleInfo.size());
             this.aegisChainChain = getAegisChainChain();
-            LOGGER.info("zeus-aegis change rules success !");
+            LOGGER.info("jrl-aegis change rules success !");
         } else {
-            LOGGER.info("zeus-aegis load rules start ! scope size : {}", ruleInfo.size());
+            LOGGER.info("jrl-aegis load rules start ! scope size : {}", ruleInfo.size());
             this.aegisChainChain = getAegisChainChain();
-            LOGGER.info("zeus-aegis load rules success !");
+            LOGGER.info("jrl-aegis load rules success !");
         }
     }
 
-    protected static class ZeusAegisChainUtil {
+    protected static class JrlAegisChainUtil {
 
         private static final Map<Integer, JrlAegisChainChain> CHAIN_MAP = new ConcurrentHashMap<>();
 
@@ -259,7 +259,7 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
          * @param scopes        作用域列表
          * @param index         索引
          * @param chainFunction 链创建方法
-         * @return ZeusLimiterChainChain
+         * @return JrlLimiterChainChain
          */
         public static JrlAegisChainChain buildChain(List<JrlAegisScope> scopes, int index, Function<JrlAegisScope, JrlAegisExecutorChain> chainFunction) {
             if (scopes == null || scopes.isEmpty()) {
@@ -268,10 +268,10 @@ public abstract class AbstractJrlAegis<E extends JrlAegisExecutor<?, R>, R exten
             if (index >= scopes.size()) {
                 return null;
             }
-            final JrlAegisScope zeusAegisScope = scopes.get(index);
-            final JrlAegisChainChain zeusAegisChainChain = new JrlAegisChainChain(zeusAegisScope.getPriority(), chainFunction.apply(zeusAegisScope), buildChain(scopes, ++index, chainFunction));
-            CHAIN_MAP.put(zeusAegisScope.getPriority(), zeusAegisChainChain);
-            return zeusAegisChainChain;
+            final JrlAegisScope jrlAegisScope = scopes.get(index);
+            final JrlAegisChainChain jrlAegisChainChain = new JrlAegisChainChain(jrlAegisScope.getPriority(), chainFunction.apply(jrlAegisScope), buildChain(scopes, ++index, chainFunction));
+            CHAIN_MAP.put(jrlAegisScope.getPriority(), jrlAegisChainChain);
+            return jrlAegisChainChain;
         }
 
         public static JrlAegisChainChain getChain(int priority) {

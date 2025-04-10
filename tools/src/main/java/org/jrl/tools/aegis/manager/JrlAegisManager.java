@@ -21,16 +21,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JrlAegisManager {
 
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlAegisManager.class);
-    private static final Map<String, AbstractJrlAegis> ZEUS_AEGIS_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, AbstractJrlAegis> JRL_AEGIS_MAP = new ConcurrentHashMap<>();
 
     public static AbstractJrlAegis getAegis(String name) {
-        return ZEUS_AEGIS_MAP.get(name);
+        return JRL_AEGIS_MAP.get(name);
     }
 
 
     public static <R extends JrlAegisRule, E extends JrlAegisExecutor<?, R>> AbstractJrlAegis<E, R> getAegis(String name, JrlAegisResourceType resourceType, List<R> rules) {
-        return ZEUS_AEGIS_MAP.computeIfAbsent(name, k -> {
-            LOGGER.info("zeus-aegis create : {} , resourceType : {} , rule size : {}", name, resourceType, rules.size());
+        return JRL_AEGIS_MAP.computeIfAbsent(name, k -> {
+            LOGGER.info("jrl-aegis create : {} , resourceType : {} , rule size : {}", name, resourceType, rules.size());
             switch (resourceType) {
                 case MESH:
                     return new JrlAegisMesh<>(name, rules);

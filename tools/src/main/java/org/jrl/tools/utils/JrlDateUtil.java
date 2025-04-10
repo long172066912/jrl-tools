@@ -32,8 +32,8 @@ public class JrlDateUtil {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             return sdf.parse(dateStr).getTime();
         } catch (Exception e) {
-            LOGGER.error("zeus-limit date2TimeStamp error ! dateStr : {} , format : {}", dateStr, format, e);
-            throw new RuntimeException("zeus-limit date2TimeStamp error ! dateStr : " + dateStr + " , format : " + format);
+            LOGGER.error("jrl-limit date2TimeStamp error ! dateStr : {} , format : {}", dateStr, format, e);
+            throw new RuntimeException("jrl-limit date2TimeStamp error ! dateStr : " + dateStr + " , format : " + format);
         }
     }
 
@@ -74,8 +74,8 @@ public class JrlDateUtil {
         try {
             return dateFormat.parse(date);
         } catch (Exception e) {
-            LOGGER.error("zeus-limit timeStamp2Date error ! timestamp : {} , format : {}", timestamp, format, e);
-            throw new RuntimeException("zeus-limit timeStamp2Date error ! timestamp : " + timestamp + " , format : " + format);
+            LOGGER.error("jrl-limit timeStamp2Date error ! timestamp : {} , format : {}", timestamp, format, e);
+            throw new RuntimeException("jrl-limit timeStamp2Date error ! timestamp : " + timestamp + " , format : " + format);
         }
     }
 }

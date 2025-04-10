@@ -64,11 +64,11 @@ public class JrlAegisMockTest {
 
     @Test
     public void testMockObj() throws InterruptedException {
-        final JrlAegis zeusAegis = JrlAegisUtil.limitQps("testMockObj", 1);
-        zeusAegis.openBlockMock();
+        final JrlAegis jrlAegis = JrlAegisUtil.limitQps("testMockObj", 1);
+        jrlAegis.openBlockMock();
         JrlMock.doReturn(new TestMock<>("test", 18, 1, ImmutableMap.of("aa", "bb"))).when(JrlAegis.class).time(1, 2, TimeUnit.MILLISECONDS).func("testMockObj");
-        zeusAegis.tryAcquire();
-        final TestMock<Integer, String> test = zeusAegis.tryAcquire(new AbstractJrlCallable<TestMock<Integer, String>>() {
+        jrlAegis.tryAcquire();
+        final TestMock<Integer, String> test = jrlAegis.tryAcquire(new AbstractJrlCallable<TestMock<Integer, String>>() {
             @Override
             public TestMock<Integer, String> call() throws Exception {
                 throw new RuntimeException("testMockObj");
@@ -81,17 +81,17 @@ public class JrlAegisMockTest {
         Assertions.assertEquals(ImmutableMap.of("aa", "bb"), test.getMap());
 
         //关闭mock
-        zeusAegis.closeBlockMock();
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        jrlAegis.closeBlockMock();
+        Assertions.assertFalse(jrlAegis.tryAcquire());
     }
 
     @Test
     public void testMockJson() throws InterruptedException {
-        final JrlAegis zeusAegis = JrlAegisUtil.limitQps("testMockObj", 1);
-        zeusAegis.openBlockMock();
+        final JrlAegis jrlAegis = JrlAegisUtil.limitQps("testMockObj", 1);
+        jrlAegis.openBlockMock();
         JrlMock.doReturn(JrlJsonNoExpUtil.toJson(new TestMock<>("test", 18, 1, ImmutableMap.of("aa", "bb")))).when(JrlAegis.class).time(1, 2, TimeUnit.MILLISECONDS).func("testMockObj");
-        zeusAegis.tryAcquire();
-        final TestMock<Integer, String> test = zeusAegis.tryAcquire(new AbstractJrlCallable<TestMock<Integer, String>>() {
+        jrlAegis.tryAcquire();
+        final TestMock<Integer, String> test = jrlAegis.tryAcquire(new AbstractJrlCallable<TestMock<Integer, String>>() {
             @Override
             public TestMock<Integer, String> call() throws Exception {
                 throw new RuntimeException("testMockObj");
@@ -104,8 +104,8 @@ public class JrlAegisMockTest {
         Assertions.assertEquals(ImmutableMap.of("aa", "bb"), test.getMap());
 
         //关闭mock
-        zeusAegis.closeBlockMock();
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        jrlAegis.closeBlockMock();
+        Assertions.assertFalse(jrlAegis.tryAcquire());
     }
 
     private static class TestMock<T, V> {

@@ -29,7 +29,7 @@ import java.util.Set;
 public class JrlAegisSentinelBreakerExtends implements JrlAegisExecutorSpi<JrlAegisSentinelEntry, JrlAegisBreakerRule> {
     private static final Logger LOGGER = JrlLoggerFactory.getLogger(JrlAegisSentinelBreakerExtends.class);
     private static final Set<String> DEGRADE_RULES = new HashSet<>();
-    private static final int ZEUS_AEGIS_BREAKER_RESOURCE_TYPE_ID = 2000000;
+    private static final int JRL_AEGIS_BREAKER_RESOURCE_TYPE_ID = 2000000;
 
     @Override
     public void init(String name, JrlAegisBreakerRule rule) {
@@ -41,11 +41,11 @@ public class JrlAegisSentinelBreakerExtends implements JrlAegisExecutorSpi<JrlAe
         try {
             //判断服务是否被降级
             if (DEGRADE_RULES.contains(name)) {
-                throw new DegradeException("zeus-breaker-sentinel DEGRADE ! name : " + name);
+                throw new DegradeException("jrl-breaker-sentinel DEGRADE ! name : " + name);
             }
-            return new JrlAegisSentinelEntry(name, SphU.asyncEntry(name, ZEUS_AEGIS_BREAKER_RESOURCE_TYPE_ID, EntryType.OUT), rule.type());
+            return new JrlAegisSentinelEntry(name, SphU.asyncEntry(name, JRL_AEGIS_BREAKER_RESOURCE_TYPE_ID, EntryType.OUT), rule.type());
         } catch (BlockException e) {
-            LOGGER.warn("zeus-aegis breaker-sentinel block ! name : {} , rule : {}", name, rule);
+            LOGGER.warn("jrl-aegis breaker-sentinel block ! name : {} , rule : {}", name, rule);
             throw new JrlAegisBreakerException(name, rule);
         }
     }
@@ -80,7 +80,7 @@ public class JrlAegisSentinelBreakerExtends implements JrlAegisExecutorSpi<JrlAe
                 break;
             case DEGRADE:
                 DEGRADE_RULES.add(name);
-                LOGGER.info("zeus-aegis breaker-sentinel DEGRADE load : {}", name);
+                LOGGER.info("jrl-aegis breaker-sentinel DEGRADE load : {}", name);
                 break;
             default:
                 return;
@@ -89,15 +89,15 @@ public class JrlAegisSentinelBreakerExtends implements JrlAegisExecutorSpi<JrlAe
     }
 
     private static void loadSentinelRule(String name, DegradeRule rule) {
-        LOGGER.info("zeus-aegis breaker-sentinel load : {} start ! rule : {}", name, rule);
+        LOGGER.info("jrl-aegis breaker-sentinel load : {} start ! rule : {}", name, rule);
         List<DegradeRule> rules = DegradeRuleManager.getRules();
         if (FlowRuleManager.hasConfig(name)) {
             //删除旧的规则
             rules.removeIf(flowRule -> flowRule.getResource().equals(name));
-            LOGGER.info("zeus-aegis breaker-sentinel delete old rule : {}", name);
+            LOGGER.info("jrl-aegis breaker-sentinel delete old rule : {}", name);
         }
         rules.add(rule);
         DegradeRuleManager.loadRules(rules);
-        LOGGER.info("zeus-aegis breaker-sentinel load : {} success !", name);
+        LOGGER.info("jrl-aegis breaker-sentinel load : {} success !", name);
     }
 }

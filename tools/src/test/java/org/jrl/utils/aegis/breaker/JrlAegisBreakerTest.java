@@ -223,8 +223,8 @@ public class JrlAegisBreakerTest {
             }));
         }
         Thread.sleep(1000L);
-        for (JrlAegisEntry zeusAegisEntry : entryList) {
-            zeusAegisEntry.end();
+        for (JrlAegisEntry aegisEntry : entryList) {
+            aegisEntry.end();
         }
 
         Assertions.assertThrows(JrlAegisBreakerException.class, aegis::tryEntry);

@@ -31,7 +31,7 @@ public class JrlAegisMesh<E extends JrlAegisExecutor<?, R>, R extends JrlAegisRu
         if (rule.type().getAction() == JrlAegisType.LIMIT) {
             return (E) new JrlLimitMeshExecutorWrapper(this.getName(), (JrlAegisLimitRule) rule);
         } else {
-            throw new IllegalArgumentException("Zeus-Aegis 规则类型错误: [" + rule.type().getAction() + "] , 暂不支持分布式断路器");
+            throw new IllegalArgumentException("Jrl-Aegis 规则类型错误: [" + rule.type().getAction() + "] , 暂不支持分布式断路器");
         }
     }
 }

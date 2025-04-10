@@ -31,7 +31,7 @@ public class JrlAegisSentinelEntry implements JrlAegisEntry {
     public void end() {
         try {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("zeus-aegis breaker-sentinel exit ! name : {}", name);
+                LOGGER.debug("jrl-aegis breaker-sentinel exit ! name : {}", name);
             }
             if (type == TIME_WINDOW) {
                 Optional.of(MapUtils.getObject(JrlAegisSentinelLimitExtends.TIME_WINDOW_METRICS, name)).ifPresent(metric -> metric.addPass(1));
@@ -40,7 +40,7 @@ public class JrlAegisSentinelEntry implements JrlAegisEntry {
                 entry.exit(1);
             }
         } catch (Throwable e) {
-            LOGGER.error("zeus-aegis breaker-sentinel exit error ! name : {}", name, e);
+            LOGGER.error("jrl-aegis breaker-sentinel exit error ! name : {}", name, e);
         }
     }
 
@@ -48,7 +48,7 @@ public class JrlAegisSentinelEntry implements JrlAegisEntry {
     public void end(Throwable error) {
         try {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("zeus-aegis breaker-sentinel exit ! name : {} , error : {}", name, error);
+                LOGGER.debug("jrl-aegis breaker-sentinel exit ! name : {} , error : {}", name, error);
             }
             if (type == TIME_WINDOW) {
                 Optional.of(MapUtils.getObject(JrlAegisSentinelLimitExtends.TIME_WINDOW_METRICS, name)).ifPresent(metric -> metric.addPass(1));
@@ -60,7 +60,7 @@ public class JrlAegisSentinelEntry implements JrlAegisEntry {
                 entry.exit(1);
             }
         } catch (Throwable e) {
-            LOGGER.error("zeus-aegis breaker-sentinel exit error ! name : {}", name, e);
+            LOGGER.error("jrl-aegis breaker-sentinel exit error ! name : {}", name, e);
         }
     }
 }

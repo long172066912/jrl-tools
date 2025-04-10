@@ -210,7 +210,7 @@ public class JrlLimitLocalTest {
                 .addRule(JrlAegisLimitRule.builder().count(10)
                         .condition(JrlCondition.builder()
                              .and()
-                                .item(JrlConditionItem.builder().key("name").values("wb", "wanba").must().build())
+                                .item(JrlConditionItem.builder().key("name").values("aa", "bbb").must().build())
                                 .item(JrlConditionItem.builder().key("age").values(18, 19).must().build())
                                 .build())
                         .build())
@@ -219,11 +219,11 @@ public class JrlLimitLocalTest {
         for (int i = 0; i < 20; i++) {
             Assertions.assertTrue(limiter.tryAcquire());
         }
-        JrlAegisContext.getContext().enter("name", "wb").enter("age", 18);
+        JrlAegisContext.getContext().enter("name", "aa").enter("age", 18);
         for (int i = 0; i < 10; i++) {
             Assertions.assertTrue(limiter.tryAcquire());
         }
-        Assertions.assertEquals("wb", JrlAegisContext.getContext().getRequest().get("name"));
+        Assertions.assertEquals("aa", JrlAegisContext.getContext().getRequest().get("name"));
         Assertions.assertFalse(limiter::tryAcquire);
         JrlAegisContext.clear();
     }

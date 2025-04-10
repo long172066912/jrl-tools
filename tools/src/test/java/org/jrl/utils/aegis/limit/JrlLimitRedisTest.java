@@ -78,43 +78,43 @@ public class JrlLimitRedisTest {
     public void testLua2() throws InterruptedException {
         BaseCacheExecutor cacheExecutor = CacheClientFactory.getCacheExecutor("test", new LettuceConnectSourceConfig());
         cacheExecutor.del("test");
-        final JrlAegisRedisHandler zeusAegisWbCache2Handler = new JrlAegisRedisHandler("test", JrlCacheMeshConnectType.NORMAL, true);
+        final JrlAegisRedisHandler jrlAegisRedisHandler = new JrlAegisRedisHandler("test", JrlCacheMeshConnectType.NORMAL, true);
         for (int i = 0; i < 10; i++) {
-            Assertions.assertTrue(zeusAegisWbCache2Handler.incrByTimeWindow("test", 10, 100000));
+            Assertions.assertTrue(jrlAegisRedisHandler.incrByTimeWindow("test", 10, 100000));
             Thread.sleep(500L);
         }
         Assertions.assertEquals(10, cacheExecutor.zcard("test"));
-        Assertions.assertFalse(zeusAegisWbCache2Handler.incrByTimeWindow("test", 10, 100000));
+        Assertions.assertFalse(jrlAegisRedisHandler.incrByTimeWindow("test", 10, 100000));
     }
 
 
     @Test
     public void testQps() throws InterruptedException {
-        final JrlAegis zeusAegis = JrlAegisUtil.limit().mesh("test", "test")
+        final JrlAegis jrlAegis = JrlAegisUtil.limit().mesh("test", "test")
                 .addRule(JrlAegisLimitRule.builder().count(10).type(JrlAegisLimitType.QPS).build())
                 .build();
         for (int i = 0; i < 10; i++) {
-            Assertions.assertTrue(zeusAegis.tryAcquire());
+            Assertions.assertTrue(jrlAegis.tryAcquire());
         }
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        Assertions.assertFalse(jrlAegis.tryAcquire());
         Thread.sleep(1000L);
-        Assertions.assertTrue(zeusAegis.tryAcquire());
+        Assertions.assertTrue(jrlAegis.tryAcquire());
     }
 
     @Test
     public void testTimeWindow() throws InterruptedException {
-        final JrlAegis zeusAegis = JrlAegisUtil.limit().mesh("testMeshTimeWindow", "test")
+        final JrlAegis jrlAegis = JrlAegisUtil.limit().mesh("testMeshTimeWindow", "test")
                 .addRule(JrlAegisLimitRule.builder().count(10).timeWindow(2).type(JrlAegisLimitType.TIME_WINDOW).build())
                 .build();
         for (int i = 0; i < 10; i++) {
             Thread.sleep(100L);
-            Assertions.assertTrue(zeusAegis.tryAcquire());
+            Assertions.assertTrue(jrlAegis.tryAcquire());
         }
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        Assertions.assertFalse(jrlAegis.tryAcquire());
         Thread.sleep(500L);
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        Assertions.assertFalse(jrlAegis.tryAcquire());
         Thread.sleep(1000L);
-        Assertions.assertTrue(zeusAegis.tryAcquire());
+        Assertions.assertTrue(jrlAegis.tryAcquire());
     }
 
     @Test
@@ -158,24 +158,24 @@ public class JrlLimitRedisTest {
 
     @Test
     public void testTimeWindowDynamic() throws InterruptedException {
-        JrlAegis zeusAegis = JrlAegisUtil.limitTimeMeshDynamicConfig("testMeshTimeWindow", "test", JrlAegisScope.GLOBAL, 1, 10, 1);
+        JrlAegis aegis = JrlAegisUtil.limitTimeMeshDynamicConfig("testMeshTimeWindow", "test", JrlAegisScope.GLOBAL, 1, 10, 1);
         for (int i = 0; i < 10; i++) {
-            Assertions.assertTrue(zeusAegis.tryAcquire());
+            Assertions.assertTrue(aegis.tryAcquire());
         }
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        Assertions.assertFalse(aegis.tryAcquire());
         Thread.sleep(1000L);
         //正确的修改配置
-        zeusAegis = JrlAegisUtil.limitTimeMeshDynamicConfig("testMeshTimeWindow", "test", JrlAegisScope.GLOBAL, 1, 5, 1);
+        aegis = JrlAegisUtil.limitTimeMeshDynamicConfig("testMeshTimeWindow", "test", JrlAegisScope.GLOBAL, 1, 5, 1);
         for (int i = 0; i < 5; i++) {
-            Assertions.assertTrue(zeusAegis.tryAcquire());
+            Assertions.assertTrue(aegis.tryAcquire());
         }
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        Assertions.assertFalse(aegis.tryAcquire());
         Thread.sleep(1000L);
         //错误的修改配置
-        zeusAegis = JrlAegisUtil.limitTimeMeshDynamicConfig("testMeshTimeWindow", "test", JrlAegisScope.GLOBAL, 2, 10, 1);
+        aegis = JrlAegisUtil.limitTimeMeshDynamicConfig("testMeshTimeWindow", "test", JrlAegisScope.GLOBAL, 2, 10, 1);
         for (int i = 0; i < 5; i++) {
-            Assertions.assertTrue(zeusAegis.tryAcquire());
+            Assertions.assertTrue(aegis.tryAcquire());
         }
-        Assertions.assertFalse(zeusAegis.tryAcquire());
+        Assertions.assertFalse(aegis.tryAcquire());
     }
 }

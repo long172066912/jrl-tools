@@ -50,7 +50,7 @@ public class JrlAegisLocalBuilder<R extends JrlAegisRule> {
 
     protected void checkRule() {
         if (CollectionUtils.isEmpty(rules)) {
-            throw new IllegalArgumentException("Zeus-Aegis 规则不能为空");
+            throw new IllegalArgumentException("Jrl-Aegis 规则不能为空");
         }
         //检测rules的id是否唯一
         //对rules分组
@@ -62,13 +62,13 @@ public class JrlAegisLocalBuilder<R extends JrlAegisRule> {
             rule.forEach(rule1 -> {
                 final int i = counter.computeIfAbsent(rule1.id(), k -> new AtomicInteger(0)).incrementAndGet();
                 if (i > 1) {
-                    throw new IllegalArgumentException("Zeus-Aegis scope[" + rule1.scope().getScope() + "] 规则 id 不能重复:" + rule1.id());
+                    throw new IllegalArgumentException("Jrl-Aegis scope[" + rule1.scope().getScope() + "] 规则 id 不能重复:" + rule1.id());
                 }
                 actions.computeIfAbsent(rule1.type().getAction(), k -> new AtomicInteger(0)).incrementAndGet();
             });
         });
         if (actions.keySet().size() > 1) {
-            throw new IllegalArgumentException("Zeus-Aegis 规则 action 不能重复: [" + JrlJsonNoExpUtil.toJson(actions.keySet()) + "]");
+            throw new IllegalArgumentException("Jrl-Aegis 规则 action 不能重复: [" + JrlJsonNoExpUtil.toJson(actions.keySet()) + "]");
         }
     }
 }
