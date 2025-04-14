@@ -29,7 +29,7 @@ public class JrlLimitRedisTest {
 
     @Test
     public void testTime() throws InterruptedException {
-        final int qpsTimeWindow = 1 * RANDOM_LENGTH * 1000;
+        final int qpsTimeWindow = RANDOM_LENGTH * 1000;
         List<Long> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Thread.sleep(200L);
