@@ -4,6 +4,9 @@ include ':tools'
 include ':redis:core'
 include ':redis:redis-proxy-java'
 include ':monitor:jrl-monitor-micrometer'
+
 include ':extensions:thread-apollo'
 include ':extensions:cache-mesh-redis'
 include ':extensions:aegis-mesh-redis'
+
+include ':spring:jrl-tools-spring-boot-starter'
