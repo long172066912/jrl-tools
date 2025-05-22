@@ -82,7 +82,7 @@ public class JrlCacheManager {
             if (cache.getConfig().getCacheType().equals(JrlCacheType.MESH) || cache.getConfig().getCacheType().equals(JrlCacheType.BOTH)) {
                 if (INIT_FLAG.compareAndSet(false, true)) {
                     LOGGER.info("jrl-cache inner channel init !");
-                    cache.subscribe(JRL_CACHE_INNER_CHANNEL, JrlCacheManager::subscribeJrlCacheInnerChannel);
+                    cache.subscribe(JRL_CACHE_INNER_CHANNEL + cacheName, JrlCacheManager::subscribeJrlCacheInnerChannel);
                 }
             }
             return (BaseJrlCache) Proxy.newProxyInstance(JrlCacheManager.class.getClassLoader(),

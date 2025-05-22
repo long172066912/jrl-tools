@@ -104,7 +104,7 @@ public abstract class AbstractJrlCache<K, V> implements BaseJrlCache<K, V> {
 
     @Override
     public void innerPublish(JrlCacheChannelHandleType handleType, String msg) {
-        this.publish(JrlCacheManager.JRL_CACHE_INNER_CHANNEL, JrlJsonNoExpUtil.toJson(new JrlCacheSubscribeVo(this.cacheName, handleType, msg)));
+        this.publish(JrlCacheManager.JRL_CACHE_INNER_CHANNEL + cacheName, JrlJsonNoExpUtil.toJson(new JrlCacheSubscribeVo(this.cacheName, handleType, msg)));
     }
 
     @Override
