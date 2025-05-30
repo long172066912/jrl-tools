@@ -80,10 +80,9 @@ public class JrlCacheManager {
             final JrlCacheProxy<K, V> kvJrlCacheProxy = new JrlCacheProxy<>(cache);
             proxyMap.put(cache.getConfig().name(), kvJrlCacheProxy);
             if (cache.getConfig().getCacheType().equals(JrlCacheType.MESH) || cache.getConfig().getCacheType().equals(JrlCacheType.BOTH)) {
-                if (INIT_FLAG.compareAndSet(false, true)) {
-                    LOGGER.info("jrl-cache inner channel init !");
-                    cache.subscribe(JRL_CACHE_INNER_CHANNEL + cacheName, JrlCacheManager::subscribeJrlCacheInnerChannel);
-                }
+                final String channel = JRL_CACHE_INNER_CHANNEL + cacheName;
+                LOGGER.info("jrl-cache inner channel init ! channel : {}", channel);
+                cache.subscribe(cacheName, JrlCacheManager::subscribeJrlCacheInnerChannel);
             }
             return (BaseJrlCache) Proxy.newProxyInstance(JrlCacheManager.class.getClassLoader(),
                     new Class[]{BaseJrlCache.class}, kvJrlCacheProxy);

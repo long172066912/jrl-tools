@@ -35,7 +35,6 @@ public abstract class AbstractJrlBothCache<K, V> extends AbstractJrlCache<K, V> 
     protected final JrlCache<K, V> localCache;
     protected final BaseJrlCache<K, V> meshCache;
     private static final String POD_UNIQUE_ID = UUID.randomUUID().toString().replaceAll("-", "");
-    private static final ThreadLocal<Boolean> IS_SUBSCRIBE_THREAD_LOCAL = ThreadLocal.withInitial(() -> false);
 
     public AbstractJrlBothCache(String name, JrlCache<K, V> meshCache, JrlCache<K, V> localCache) {
         super(name, new JrlCacheBothConfig<>(name, localCache.getConfig(), meshCache.getConfig()), ((JrlCacheMeshConfig<K, V>) meshCache.getConfig()).getJrlCacheHotKeyConfig());
@@ -71,13 +70,10 @@ public abstract class AbstractJrlBothCache<K, V> extends AbstractJrlCache<K, V> 
         if (data.getPodUniqueId().equals(POD_UNIQUE_ID)) {
             return;
         }
-        IS_SUBSCRIBE_THREAD_LOCAL.set(true);
         try {
-            this.removeAll(data.getKeys());
+            localCache.removeAll(data.getKeys());
         } catch (Throwable e) {
             LOGGER.error("jrl-cache subscribe change message error ! message : {}", message);
-        } finally {
-            IS_SUBSCRIBE_THREAD_LOCAL.remove();
         }
     }
 
