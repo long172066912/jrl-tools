@@ -127,7 +127,7 @@ public class JrlDynamicQueue<E> extends VariableLinkedBlockingQueue<E> {
         //线程优先
         if (threadPriority && null != poolExecutor) {
             //如果线程没满，线程优先
-            if (poolExecutor.getActiveCount() < poolExecutor.getMaximumPoolSize() - 1) {
+            if (poolExecutor.getPoolSize() < poolExecutor.getMaximumPoolSize()) {
                 return false;
             }
         }
